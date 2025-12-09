@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sausalito Cafe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sausalito Cafe</h1>
+        <p>Welcome to our cozy cafe located in the heart of Sausalito.</p>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>At Sausalito Cafe, we offer a delightful selection of homemade pastries, organic coffee, and seasonal dishes made with locally sourced ingredients.</p>
+        </section>
+
+        <section id="menu">
+            <h2>Menu</h2>
+            <button onclick="openMenuModal()">View Sample Menu</button>
+        </section>
+
+        <section id="booking">
+            <h2>Booking Inquiry</h2>
+            <form id="bookingForm" onsubmit="return handleBooking(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone">
+
+                <label for="eventDate">Event Date:</label>
+                <input type="date" id="eventDate" name="eventDate" required>
+
+                <label for="guests">Number of Guests:</label>
+                <input type="number" id="guests" name="guests" required>
+
+                <label for="message">Special Requests:</label>
+                <textarea id="message" name="message"></textarea>
+
+                <button type="submit">Submit Inquiry</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Sausalito Cafe. All rights reserved.</p>
+        <button onclick="openMail()">Email Us</button>
+    </footer>
+
+    <script>
+    // small helpers
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function openMenuModal(){
+      // simple fallback modal — replace with real modal markup if desired
+      const menu = [
+        "Grilled Local Salmon — Citrus glaze, fennel & herb salad",
+        "Summer Salad (V) — Heirloom tomatoes, burrata, basil vinaigrette",
+        "Wood-Roasted Chicken — Lemon, thyme, roasted seasonal veg",
+        "Family-Style Pasta (V) — Rigatoni, roasted tomatoes, mascarpone",
+        "Mini Crab Cakes — Tarragon aioli, microgreens",
+        "Dessert Platter — Assorted pastries & seasonal fruit"
+      ].join("\n\n");
+      alert("Sample Menu:\n\n" + menu);
+    }
+
+    function openMail(){
+      window.location.href = "mailto:hello@sausalitocafe.com?subject=Booking%20Inquiry";
+    }
+
+    function handleBooking(e){
+      e = e || window.event;
+      if (e.preventDefault) e.preventDefault();
+
+      const form = document.getElementById('bookingForm');
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        eventDate: form.eventDate.value.trim(),
+        guests: form.guests.value.trim(),
+        message: form.message.value.trim()
+      };
+
+      if (!data.name || !data.email){
+        alert('Please provide your name and email.');
+        return false;
+      }
+
+      // TODO: send `data` to your backend or email service (fetch/XHR)
+      console.log('Booking request:', data);
+      alert('Thanks — your request has been recorded. We will follow up within 48 hours.');
+      form.reset();
+      return false;
+    }
+    </script>
+</body>
+</html>
