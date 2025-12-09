@@ -1,3 +1,4 @@
+
 # QS Catering Website
 
 A modern, professional catering website built with Next.js, React, and Supabase.
